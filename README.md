@@ -13,29 +13,58 @@
 | Latency               | Z ms                    |
 | Memory Usage          | A MB                    |
 
-## Installation Guide
 
-Follow these steps to install the Stable Diffusion AMD Installer:
+## Instalación y uso rápido
 
-1. **Prerequisites**
-   - Ensure you have Python 3.10.11 installed. You can download it from [Python.org](https://www.python.org/downloads/release/python-31011/).
-   - Install the latest version of DirectML for optimal performance on AMD GPUs.
+### 1. Clona este repositorio
+```bash
+git clone https://github.com/piposeimandi/stable-diffusion-amd-installer.git
+cd stable-diffusion-amd-installer
+```
 
-2. **Clone the Repository**
-   ```bash
-   git clone https://github.com/piposeimandi/stable-diffusion-amd-installer.git
-   cd stable-diffusion-amd-installer
-   ```
+### 2. Ejecuta el instalador automático
 
-3. **Install Required Packages**
-   ```bash
-   pip install -r requirements.txt
-   ```
+Abre una terminal (CMD o PowerShell) en la carpeta del repositorio y ejecuta:
 
-4. **Run the Installer**
-   ```bash
-   python installer.py
-   ```
+```bat
+inicio.bat
+```
+o, si usas PowerShell:
+```powershell
+cmd /c inicio.bat
+```
+
+### ¿Qué hace el script `inicio.bat`?
+
+- Crea una carpeta de proyecto aislada en el mismo directorio donde lo ejecutas.
+- Crea y activa un entorno virtual de Python (no afecta tu sistema).
+- Verifica e instala Python 3.10.11 si es necesario.
+- Verifica la presencia de Git.
+- Clona (o actualiza) el repositorio AUTOMATIC1111/stable-diffusion-webui.
+- Instala dependencias optimizadas para AMD RX 570 8GB y DirectML.
+- Instala la extensión Deforum para generación de video.
+- Genera scripts batch para activar el entorno, iniciar Stable Diffusion y gestionar el entorno.
+- Crea documentación y logs de la instalación.
+
+Al finalizar, tendrás todo listo para usar Stable Diffusion WebUI y Deforum en tu GPU AMD RX 570 8GB, de forma aislada y portable.
+
+### Para iniciar Stable Diffusion
+
+Ejecuta el script generado:
+```bat
+Iniciar_StableDiffusion.bat
+```
+Esto activará el entorno y lanzará la WebUI optimizada para tu GPU.
+
+### Para gestión avanzada
+
+Usa el script:
+```bat
+Gestor_Entorno.bat
+```
+Tendrás opciones para activar el entorno, actualizar dependencias, crear backups, ver información, etc.
+
+---
 
 ## Troubleshooting
 
