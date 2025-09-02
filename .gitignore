@@ -1,0 +1,19 @@
+# Python
+*.pyc
+__pycache__/
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Windows
+Thumbs.db
+.DS_Store
+
+# WebUI
+webui-user.bat
+webui.sh
