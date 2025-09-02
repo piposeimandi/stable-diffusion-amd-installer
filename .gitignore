@@ -8,7 +8,8 @@ env/
 venv/
 ENV/
 env.bak/
-venv.bak/
+
+stable_diffusion_project/
 
 # Windows
 Thumbs.db

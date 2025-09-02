@@ -5,7 +5,7 @@
 :: Version: 4.1 - ASCII Compatible
 
 setlocal enabledelayedexpansion
-title Instalador Stable Diffusion AMD RX 570 8GB - Python venv - piposeimandi
+title Instalador Stable Diffusion AMD RX 570 8GB - Python venv
 
 echo =============================================
 echo   STABLE DIFFUSION RX 570 8GB - PYTHON VENV
@@ -17,11 +17,12 @@ echo GPU: AMD RX 570 8GB DirectML
 echo.
 
 :: Configurar directorios con fecha actual
-set "BASE_DIR=%USERPROFILE%\AI_Projects"
-set "PROJECT_NAME=stable_diffusion_piposeimandi_20250902"
+rem Usar el directorio actual como base
+set "BASE_DIR=%CD%"
+set "PROJECT_NAME=stable_diffusion_project"
 set "PROJECT_DIR=%BASE_DIR%\%PROJECT_NAME%"
-set "VENV_NAME=venv_sd_piposeimandi"
-set "LOG_FILE=%PROJECT_DIR%\instalacion_piposeimandi_20250902_004253.log"
+set "VENV_NAME=venv_sd"
+set "LOG_FILE=%PROJECT_DIR%\instalacion.log"
 
 echo Proyecto: %PROJECT_NAME%
 echo Directorio: %PROJECT_DIR%
@@ -36,7 +37,7 @@ cd /d "%PROJECT_DIR%"
 
 :: Inicializar logging
 call :WriteLog "=== INSTALACION STABLE DIFFUSION VENV ==="
-call :WriteLog "Usuario: piposeimandi"
+rem call :WriteLog "Usuario: (genérico)"
 call :WriteLog "Fecha: 2025-09-02 00:42:53 UTC"
 call :WriteLog "Directorio: %PROJECT_DIR%"
 call :WriteLog "GPU: AMD RX 570 8GB"
@@ -168,6 +169,17 @@ git clone https://github.com/AUTOMATIC1111/stable-diffusion-webui.git
     call :WriteLog "Repositorio clonado exitosamente"
 )
 
+
+:: Instalar extensión Deforum para video
+echo Instalando extensión Deforum para generación de video...
+if not exist "stable-diffusion-webui\\extensions\\deforum-for-automatic1111-webui" (
+    git clone https://github.com/deforum-art/deforum-for-automatic1111-webui.git "stable-diffusion-webui/extensions/deforum-for-automatic1111-webui"
+    call :WriteLog "Deforum instalado"
+) else (
+    echo [OK] Deforum ya está instalado.
+    call :WriteLog "Deforum ya presente"
+)
+
 cd stable-diffusion-webui
 
 :: Instalar dependencias optimizadas para RX 570 8GB
@@ -207,7 +219,7 @@ call :WriteLog "Configurando optimizaciones para RX 570 8GB"
     echo @echo off
     echo rem =============================================
     echo rem CONFIGURACION OPTIMIZADA AMD RX 570 8GB
-    echo rem Usuario: piposeimandi
+    rem Usuario: (genérico)
     echo rem Fecha: 2025-09-02 00:42:53 UTC
     echo rem Entorno: Python venv aislado
     echo rem =============================================
@@ -215,7 +227,7 @@ call :WriteLog "Configurando optimizaciones para RX 570 8GB"
     echo rem Activar entorno virtual automaticamente
     echo if not defined VIRTUAL_ENV (
     echo     call "%PROJECT_DIR%\%VENV_NAME%\Scripts\activate.bat"
-    echo     echo [OK] Entorno virtual activado para piposeimandi
+    echo     echo [OK] Entorno virtual activado
     echo ^)
     echo.
     echo set PYTHON=
@@ -239,7 +251,7 @@ call :WriteLog "Configurando optimizaciones para RX 570 8GB"
     echo.
     echo echo =============================================
     echo echo   STABLE DIFFUSION WEBUI - RX 570 8GB
-    echo echo   Usuario: piposeimandi
+    rem echo   Usuario: (genérico)
     echo echo   Entorno: Python venv aislado
     echo echo   Configurado: 2025-09-02 00:42:53 UTC
     echo echo =============================================
@@ -264,17 +276,17 @@ cd ..
 :: Script para activar solo el entorno
 (
     echo @echo off
-    echo title Entorno Virtual SD - piposeimandi
+    echo title Entorno Virtual SD
     echo echo =============================================
     echo echo   ENTORNO VIRTUAL STABLE DIFFUSION
-    echo echo   Usuario: piposeimandi
+    rem echo   Usuario: (genérico)
     echo echo   Fecha: 2025-09-02 00:42:53 UTC
     echo echo =============================================
     echo.
     echo cd /d "%PROJECT_DIR%"
     echo call "%VENV_NAME%\Scripts\activate.bat"
     echo.
-    echo echo [OK] Entorno virtual activado para piposeimandi
+    echo echo [OK] Entorno virtual activado
     echo echo.
     echo echo Comandos disponibles:
     echo echo ^• pip list           - Ver paquetes instalados
@@ -286,15 +298,15 @@ cd ..
     echo echo python webui.py --directml
     echo echo.
     echo cmd /k
-) > "Activar_Entorno_piposeimandi.bat"
+) > "Activar_Entorno.bat"
 
 :: Script para iniciar Stable Diffusion directamente
 (
     echo @echo off
-    echo title Stable Diffusion RX 570 8GB - piposeimandi
+    echo title Stable Diffusion RX 570 8GB
     echo echo =============================================
     echo echo   STABLE DIFFUSION WEBUI - RX 570 8GB
-    echo echo   Usuario: piposeimandi
+    rem echo   Usuario: (genérico)
     echo echo   Entorno: Python venv aislado
     echo echo   GPU: AMD RX 570 8GB DirectML
     echo echo =============================================
@@ -308,14 +320,14 @@ cd ..
     echo call webui-user.bat
     echo.
     echo pause
-) > "Iniciar_StableDiffusion_piposeimandi.bat"
+) > "Iniciar_StableDiffusion.bat"
 
 :: Script para gestión del entorno
 (
     echo @echo off
-    echo title Gestion Entorno - piposeimandi
+    echo title Gestion Entorno
     echo echo =============================================
-    echo echo   GESTION ENTORNO VIRTUAL - piposeimandi
+    echo echo   GESTION ENTORNO VIRTUAL
     echo echo =============================================
     echo.
     echo echo [1] Activar entorno
@@ -328,8 +340,8 @@ cd ..
     echo.
     echo choice /c 1234560 /m "Selecciona una opcion"
     echo.
-    echo if %%errorlevel%%==1 call "Activar_Entorno_piposeimandi.bat"
-    echo if %%errorlevel%%==2 call "Iniciar_StableDiffusion_piposeimandi.bat"
+    echo if %%errorlevel%%==1 call "Activar_Entorno.bat"
+    echo if %%errorlevel%%==2 call "Iniciar_StableDiffusion.bat"
     echo if %%errorlevel%%==3 (
     echo     call "%VENV_NAME%\Scripts\activate.bat"
     echo     pip list
@@ -350,7 +362,7 @@ cd ..
     echo ^)
     echo if %%errorlevel%%==6 (
     echo     echo === INFORMACION DEL ENTORNO ===
-    echo     echo Usuario: piposeimandi
+    rem echo     echo Usuario: (genérico)
     echo     echo Directorio: %PROJECT_DIR%
     echo     echo Entorno: %VENV_NAME%
     echo     echo Creado: 2025-09-02 00:42:53 UTC
@@ -359,16 +371,16 @@ cd ..
     echo     pip --version
     echo     pause
     echo ^)
-) > "Gestor_Entorno_piposeimandi.bat"
+) > "Gestor_Entorno.bat"
 
 :: Crear documentación completa sin caracteres especiales
 (
     echo =============================================
-    echo DOCUMENTACION STABLE DIFFUSION - piposeimandi
+    echo DOCUMENTACION STABLE DIFFUSION
     echo =============================================
     echo.
     echo INFORMACION DEL PROYECTO:
-    echo ^• Usuario: piposeimandi
+    rem echo ^• Usuario: (genérico)
     echo ^• Fecha instalacion: 2025-09-02 00:42:53 UTC
     echo ^• Tipo entorno: Python venv (aislado)
     echo ^• GPU: AMD RX 570 8GB DirectML
@@ -380,13 +392,20 @@ cd ..
     echo =============================================
     echo.
     echo SCRIPTS DE INICIO:
-    echo ^• Iniciar_StableDiffusion_piposeimandi.bat - Ejecutar SD
-    echo ^• Activar_Entorno_piposeimandi.bat - Solo activar entorno
-    echo ^• Gestor_Entorno_piposeimandi.bat - Gestion completa
+    echo ^• Iniciar_StableDiffusion.bat - Ejecutar SD
+    echo ^• Activar_Entorno.bat - Solo activar entorno
+    echo ^• Gestor_Entorno.bat - Gestion completa
     echo.
     echo CONFIGURACION:
     echo ^• stable-diffusion-webui/webui-user.bat - Config principal
     echo ^• %LOG_FILE% - Log instalacion
+    echo.
+    echo =============================================
+    echo EXTENSIONES PARA VIDEO
+    echo =============================================
+    echo ^• Deforum for AUTOMATIC1111 WebUI (instalado en extensions/deforum-for-automatic1111-webui)
+    echo ^• Para generar videos, ve a la pestaña Deforum en la interfaz WebUI.
+    echo ^• Documentación oficial: https://github.com/deforum-art/deforum-for-automatic1111-webui
     echo.
     echo =============================================
     echo COMANDOS UTILES EN EL ENTORNO
@@ -496,7 +515,7 @@ cd ..
     echo.
     echo Entorno configurado exitosamente para piposeimandi!
     echo 2025-09-02 00:42:53 UTC
-) > "DOCUMENTACION_COMPLETA_piposeimandi.txt"
+) > "DOCUMENTACION_COMPLETA.txt"
 
 call :WriteLog "Scripts y documentacion creados"
 call :WriteLog "=== INSTALACION COMPLETADA EXITOSAMENTE ==="
@@ -520,15 +539,15 @@ echo           ARCHIVOS CREADOS
 echo =============================================
 echo.
 echo [INICIO RAPIDO]:
-echo ^• Iniciar_StableDiffusion_piposeimandi.bat
+echo ^• Iniciar_StableDiffusion.bat
 echo.
 echo [GESTION]:
-echo ^• Activar_Entorno_piposeimandi.bat
-    echo ^• Gestor_Entorno_piposeimandi.bat
+echo ^• Activar_Entorno.bat
+echo ^• Gestor_Entorno.bat
 echo.
 echo [DOCUMENTACION]:
-echo ^• DOCUMENTACION_COMPLETA_piposeimandi.txt
-    echo ^• %LOG_FILE%
+echo ^• DOCUMENTACION_COMPLETA.txt
+echo ^• %LOG_FILE%
 echo.
 echo =============================================
 echo         RENDIMIENTO ESPERADO RX 570 8GB
@@ -572,7 +591,7 @@ if %errorlevel%==1 (
     echo Perfecto! Para iniciar mas tarde:
 echo Ejecuta: Iniciar_StableDiffusion_piposeimandi.bat
 echo.
-echo Que disfrutes creando arte, piposeimandi!
+echo Que disfrutes creando arte!
     call :WriteLog "Instalacion finalizada, usuario no inicio inmediatamente"
 )
 
