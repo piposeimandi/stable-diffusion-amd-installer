@@ -1,0 +1,8 @@
+ El volumen de la unidad D es Datos
+ El n£mero de serie del volumen es: 35D9-DE91
+
+ Directorio de D:\stable-diffusion-amd-installer\stable-diffusion-webui-directml\venv\Scripts
+
+04/09/2025  18:32           268.568 python.exe
+               1 archivos        268.568 bytes
+               0 dirs  393.952.112.640 bytes libres
